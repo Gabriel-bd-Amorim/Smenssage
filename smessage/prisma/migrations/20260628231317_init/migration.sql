@@ -1,0 +1,7 @@
+-- CreateTable
+CREATE TABLE "message" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "msg" TEXT NOT NULL,
+    "name" TEXT,
+    "create_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
