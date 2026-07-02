@@ -1,17 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '../../generated/prisma/client';
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
+import { PrismaPg } from '@prisma/adapter-pg';
 
 @Injectable()
-export class PrismaService extends PrismaClient {
+export class PrismaService extends PrismaClient implements OnModuleInit {
   constructor() {
     const databaseUrl = process.env.DATABASE_URL;
 
     if (!databaseUrl) {
-      throw new Error('DATABASE_URL is not set');
+      throw new Error('DATABASE_URL não foi encontrada no .env');
     }
 
-    const adapter = new PrismaBetterSqlite3({ url: databaseUrl });
+    const adapter = new PrismaPg({
+      connectionString: databaseUrl,
+    });
+
     super({ adapter });
+  }
+
+  async onModuleInit() {
+    await this.$connect();
   }
 }
