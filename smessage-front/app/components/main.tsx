@@ -4,8 +4,6 @@ import { FormEvent, useEffect, useState } from "react";
 import { FaInstagram, FaLock } from "react-icons/fa";
 import ToggleButton from "./button";
 
-const API_URL = "/api";
-
 export default function Maincomp() {
   const [dots, setDots] = useState("");
   const [instagram, setInstagram] = useState(false);
@@ -35,7 +33,7 @@ export default function Maincomp() {
       setIsSubmitting(true);
       setErrorMessage(null);
 
-      const response = await fetch(`${API_URL}/message`, {
+      const response = await fetch(`/api/message`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
